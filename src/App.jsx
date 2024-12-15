@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "./components/NavBar";
 import HeroSectionDesktop from "./components/hero/HeroSectionDesktop";
 import HeroSectionMobile from "./components/hero/HeroSectionMobile";
 
@@ -16,7 +15,7 @@ function App() {
 
   return (
     <div style={{ backgroundColor: "#000" }}>
-      <NavBar />
+      
       {isMobile ? <HeroSectionMobile /> : <HeroSectionDesktop />}
     </div>
   );
