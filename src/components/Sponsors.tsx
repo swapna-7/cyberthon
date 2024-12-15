@@ -1,9 +1,9 @@
 import React from 'react';
 
 const sponsors = [
-  { logo: 'logo1.png', name: 'Sponsor One' },
-  { logo: 'logo2.png', name: 'Sponsor Two' },
-  { logo: 'logo3.png', name: 'Sponsor Three' }
+  { logo: 'polygon.svg', name: '' },
+  { logo: 'ethindia.svg', name: '' },
+  { logo: 'fold.svg', name: '' }
 ];
 
 const Sponsors = () => {
@@ -17,12 +17,12 @@ const Sponsors = () => {
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem', overflowX: 'auto' }}>
           {sponsors.map((sponsor, index) => (
             <div key={index} style={{ display: 'flex', alignItems: 'center', marginRight: index !== sponsors.length - 1 ? '2rem' : '0', minWidth: '150px' }}>
-              <img src={`/images/${sponsor.logo}`} alt={sponsor.name} style={{ maxHeight: '80px', marginRight: '1rem' }} />
+              <img src={`/sponsors/${sponsor.logo}`} alt={sponsor.name} style={{ maxHeight: '80px', marginRight: '1rem' }} />
               <p style={{ fontSize: '0.875rem' }}>{sponsor.name}</p>
             </div>
           ))}
         </div>
-        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '2px' }}>
+        <div  style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '2px' }}>
           <div style={{ width: '70%', height: '2px', margin: '0 auto', background: 'linear-gradient(to right, rgba(0, 0, 0, 0.1), #ffffff, rgba(0, 0, 0, 0.1))' }}></div>
         </div>
       </div>

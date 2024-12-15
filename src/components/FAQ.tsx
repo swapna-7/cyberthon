@@ -35,9 +35,9 @@ const FAQ = () => {
     };
 
     return (
-        <div className="container text-white bg-cover bg-center" style={{ backgroundImage: `url('faq-bg.svg')` }}>
+        <div className="text-white bg-cover bg-center" style={{ backgroundImage: `url('faq-bg.svg')`, backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
             <div className="flex flex-col lg:flex-row">
-                <div className="w-full">
+                <div className="w-full lg:w-3/4">
                     <div className='ps-16'>
                         {faqs.map((faq, index) => (
                             <div key={index} className="mb-4">
@@ -45,12 +45,12 @@ const FAQ = () => {
                                     {faq.question}
                                 </h2>
                                 {selectedQuestion === index && <p>{faq.answer}</p>}
-                                <hr />
+                                <hr style={{ opacity: 0.5 }} />
                             </div>
                         ))}
                     </div>
                 </div>
-                <div className="hidden lg:block ">
+                <div className="hidden lg:block lg:w-1/4">
                     <h2 className="text-9xl font-bold">FAQ</h2>
                 </div>
             </div>

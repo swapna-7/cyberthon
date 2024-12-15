@@ -5,7 +5,7 @@ export default function AboutUs() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Column 1: Heading */}
           <div className="flex items-center">
-            <h2 className="text-8xl font-extrabold text-gray-200">ABOUT US</h2>
+            <h2 className="text-8xl font-extrabold text-gray-200 ">ABOUT US</h2>
           </div>
           {/* Column 2: Description */}
           <div className="flex items-center">

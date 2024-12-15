@@ -230,7 +230,7 @@ const HeroSectionDesktop = () => {
           Register Now
           </span>
           <span>
-            .
+          &#62;
           </span>
          
         </button>

@@ -117,7 +117,12 @@ const HeroSectionMobile = () => {
           zIndex: 4
         }}
       >
-        Register Now
+       <span style={{paddingRight:"20px",}}>
+          Register Now
+          </span>
+          <span>
+          &#62;
+          </span>
       </button>
       <div
         onClick={() => alert("Navigate to registration page")}
