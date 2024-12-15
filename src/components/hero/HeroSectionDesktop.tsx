@@ -42,7 +42,7 @@ const HeroSectionDesktop = () => {
     const heroText = heroTextRef.current;
 
     // Timer logic
-    let timerInterval: NodeJS.Timeout;
+    let timerInterval:any;
     ScrollTrigger.create({
       trigger: heroSection,
       start: "top top",

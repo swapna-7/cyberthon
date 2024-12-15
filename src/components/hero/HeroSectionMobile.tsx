@@ -106,7 +106,7 @@ const HeroSectionMobile = () => {
         onClick={() => alert("Navigate to registration page")}
         style={{
           position: "absolute",
-          bottom: "35%",
+          bottom: "40%",
           left: "1%",
           padding: "10px 20px",
           backgroundColor: "#FFFFFF",
@@ -128,7 +128,7 @@ const HeroSectionMobile = () => {
         onClick={() => alert("Navigate to registration page")}
         style={{
           position: "absolute",
-          bottom: "20%",
+          bottom: "15%",
           right: "1%",
           padding: "10px 20px",
           color: "#fff",

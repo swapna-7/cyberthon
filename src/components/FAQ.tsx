@@ -51,7 +51,7 @@ const FAQ = () => {
                     </div>
                 </div>
                 <div className="hidden lg:block lg:w-1/4">
-                    <h2 className="text-9xl font-bold">FAQ</h2>
+                    <h2 className="text-9xl font-bold text-center">FAQ</h2>
                 </div>
             </div>
         </div>

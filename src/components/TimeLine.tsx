@@ -2,11 +2,11 @@ import React from 'react';
 
 const Timeline = () => {
   const points = [
-    { id: 1, hideDownwards: true, hideUpwards: false, textBelow: 'Point 2 Below', text: 'Point 1', position: 'above' },
-    { id: 2, hideDownwards: false, hideUpwards: true, textAbove: 'Point 2 Above', text: 'Point 2', position: 'below' },
-    { id: 3, hideDownwards: true, hideUpwards: false, textBelow: 'Point 3 Below', text: 'Point 3', position: 'above' },
-    { id: 4, hideDownwards: false, hideUpwards: true, textAbove: 'Point 4 Above', text: 'Point 4', position: 'below' },
-    { id: 5, hideDownwards: true, hideUpwards: false, textBelow: 'Point 5 Below', text: 'Point 5', position: 'above' },
+    { id: 1, hideDownwards: true, hideUpwards: false, textBelow: '08:30 AM', text: 'Inaugration', position: 'above' },
+    { id: 2, hideDownwards: false, hideUpwards: true, textAbove: '09:00 AM', text: 'Hackathon Starts', position: 'below' },
+    { id: 3, hideDownwards: true, hideUpwards: false, textBelow: '10:00 AM', text: 'Judging-1', position: 'above' },
+    { id: 4, hideDownwards: false, hideUpwards: true, textAbove: '01:00 PM', text: 'Judging-2', position: 'below' },
+    { id: 5, hideDownwards: true, hideUpwards: false, textBelow: '03:00 PM', text: 'Hackathon Ends', position: 'above' },
   ];
 
   const numPoints = points.length; // Number of points on each line
@@ -22,8 +22,9 @@ const Timeline = () => {
 
   return (
     <div className="text-white">
-      <h2 className="text-8xl font-bold mb-4 ms-10">TIMELINE</h2>
-      
+      <h2 className="text-7xl sm:text-6xl lg:text-8xl font-bold mb-4 ms-10">
+        TIMELINE
+      </h2>
       <div className="overflow-x-auto">
         <div className="relative w-[1200px] sm:w-full h-[320px] mx-auto">
           {/* Top Line */}
@@ -83,6 +84,32 @@ const Timeline = () => {
                     }}
                   ></div>
                 )}
+                {point.textAbove && (
+                  <div
+                    className="absolute"
+                    style={{
+                      top: '-20px',
+                      left: `calc(${spacing}% + ${(index * (100 - 2 * spacing)) / (numPoints - 1)}%)`,
+                      transform: 'translateX(-50%)',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {point.textAbove}
+                  </div>
+                )}
+                {point.textBelow && (
+                  <div
+                    className="absolute"
+                    style={{
+                      top: '20px',
+                      left: `calc(${spacing}% + ${(index * (100 - 2 * spacing)) / (numPoints - 1)}%)`,
+                      transform: 'translateX(-50%)',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {point.textBelow}
+                  </div>
+                )}
               </React.Fragment>
             ))}
           </div>
@@ -100,7 +127,7 @@ const Timeline = () => {
                     backgroundColor: 'white',
                     borderRadius: '50%',
                     left: `calc(${spacing}% + ${(index * (100 - 2 * spacing)) / (numPoints - 1)}%)`,
-                    transform: `translateX(-50%)`,
+                    transform: 'translateX(-50%)',
                     boxShadow: '0 0 5px 2px rgba(255, 255, 255, 0.5)', // dim white outer ring
                   }}
                 >
