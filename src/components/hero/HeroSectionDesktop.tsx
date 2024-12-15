@@ -9,9 +9,9 @@ const HeroSectionDesktop = () => {
   const heroTextRef = useRef<HTMLDivElement | null>(null);
   const cyberTextRef = useRef<HTMLDivElement | null>(null);
   const [timer, setTimer] = useState({
-    days: 1,
-    hours: 23,
-    minutes: 2
+    days: 0,
+    hours: 0,
+    minutes: 0
   });
   const [showRegisterButton, setShowRegisterButton] = useState(false); // State to control the visibility of the register button
 
@@ -37,45 +37,42 @@ const HeroSectionDesktop = () => {
     // Add resize listener
     window.addEventListener('resize', updateTextSizes);
 
+    const targetDate = new Date("2024-12-20T10:00:00"); // Target date and time
+
+    const calculateTimeLeft = () => {
+      const now = new Date().getTime();
+      const distance = targetDate.getTime() - now;
+
+      if (distance < 0) {
+        return { days: 0, hours: 0, minutes: 0 };
+      } else {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+        return { days, hours, minutes };
+      }
+    };
+
     const heroSection = heroSectionRef.current;
     const heroImage = heroImageRef.current;
     const heroText = heroTextRef.current;
 
     // Timer logic
-    let timerInterval:any;
+    let timerInterval;
     ScrollTrigger.create({
       trigger: heroSection,
       start: "top top",
       end: "+=500%",
       onEnter: () => {
         timerInterval = setInterval(() => {
-          setTimer(prev => {
-            const newMinutes = prev.minutes - 1;
-            const newHours = newMinutes < 0 ? prev.hours - 1 : prev.hours;
-            const newDays = newHours < 0 ? prev.days - 1 : prev.days;
-
-            return {
-              days: newDays >= 0 ? newDays : 0,
-              hours: newHours < 0 ? 23 : newHours,
-              minutes: newMinutes < 0 ? 59 : newMinutes
-            };
-          });
+          setTimer(calculateTimeLeft());
         }, 1000);
       },
       onLeave: () => clearInterval(timerInterval),
       onEnterBack: () => {
         timerInterval = setInterval(() => {
-          setTimer(prev => {
-            const newMinutes = prev.minutes - 1;
-            const newHours = newMinutes < 0 ? prev.hours - 1 : prev.hours;
-            const newDays = newHours < 0 ? prev.days - 1 : prev.days;
-
-            return {
-              days: newDays >= 0 ? newDays : 0,
-              hours: newHours < 0 ? 23 : newHours,
-              minutes: newMinutes < 0 ? 59 : newMinutes
-            };
-          });
+          setTimer(calculateTimeLeft());
         }, 1000);
       },
       onLeaveBack: () => clearInterval(timerInterval),
@@ -142,7 +139,6 @@ const HeroSectionDesktop = () => {
         height: "100vh",
         position: "relative",
         overflow: "hidden",
-        
       }}
     >
       {/* Background CYBERTHON text */}
@@ -188,7 +184,7 @@ const HeroSectionDesktop = () => {
         ref={heroTextRef}
         style={{
           position: "absolute",
-          top: "30%",
+          top: "40%",
           left: "50%",
           transform: "translate(-50%, -50%)",
           color: "white",
@@ -214,13 +210,10 @@ const HeroSectionDesktop = () => {
             position: "absolute",
             bottom: "5%",
             left: "1%",
-            
             padding: "10px 20px",
-            
             backgroundColor: "#FFFFFF",
             color: "#000000",
             border: "none",
-            
             fontSize: "16px",
             cursor: "pointer",
             zIndex: 4
@@ -241,16 +234,15 @@ const HeroSectionDesktop = () => {
           bottom: "5%",
           right: "1%",
           padding: "10px 20px",
-        
           color: "#fff",
           border: "none",
           borderRadius: "5px",
-          fontSize: "16px",
+         
           cursor: "pointer",
           zIndex: 4
         }}
       >
-        <h1>
+        <h1 className="text-3xl">
         Feb 20  <br /> & 21
         </h1>
         <p>A high-stakes arena where <br /> top minds tackle real-world <br /> problems. </p>

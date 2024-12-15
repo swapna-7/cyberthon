@@ -6,25 +6,32 @@ const HeroSectionMobile = () => {
   const heroTextRef = useRef<HTMLDivElement | null>(null);
   const cyberTextRef = useRef<HTMLDivElement | null>(null);
   const [timer, setTimer] = useState({
-    days: 1,
-    hours: 23,
-    minutes: 2
+    days: 0,
+    hours: 0,
+    minutes: 0
   });
 
   useEffect(() => {
-    // Timer logic for mobile view
-    const timerInterval = setInterval(() => {
-      setTimer(prev => {
-        const newMinutes = prev.minutes - 1;
-        const newHours = newMinutes < 0 ? prev.hours - 1 : prev.hours;
-        const newDays = newHours < 0 ? prev.days - 1 : prev.days;
+    const targetDate = new Date("2024-12-20T00:00:00"); // Specify your target date and time
 
-        return {
-          days: newDays >= 0 ? newDays : 0,
-          hours: newHours < 0 ? 23 : newHours,
-          minutes: newMinutes < 0 ? 59 : newMinutes
-        };
-      });
+    const timerInterval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate.getTime() - now;
+
+      if (distance < 0) {
+        clearInterval(timerInterval);
+        setTimer({ days: 0, hours: 0, minutes: 0 });
+      } else {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+        setTimer({
+          days,
+          hours,
+          minutes
+        });
+      }
     }, 1000);
 
     return () => clearInterval(timerInterval);
@@ -101,7 +108,6 @@ const HeroSectionMobile = () => {
       </div>
 
       {/* Register Button */}
-
       <button
         onClick={() => alert("Navigate to registration page")}
         style={{
@@ -117,12 +123,12 @@ const HeroSectionMobile = () => {
           zIndex: 4
         }}
       >
-       <span style={{paddingRight:"20px",}}>
+        <span style={{ paddingRight: "20px" }}>
           Register Now
-          </span>
-          <span>
+        </span>
+        <span>
           &#62;
-          </span>
+        </span>
       </button>
       <div
         onClick={() => alert("Navigate to registration page")}
@@ -134,13 +140,13 @@ const HeroSectionMobile = () => {
           color: "#fff",
           border: "none",
           borderRadius: "5px",
-          fontSize: "16px",
+        
           cursor: "pointer",
           zIndex: 4
         }}
       >
-        <h1>
-          Feb 20  <br /> & 21
+        <h1 className="text-3xl">
+          Feb 20 <br /> & 21
         </h1>
         <p>A high-stakes arena where <br /> top minds tackle real-world <br /> problems. </p>
       </div>
