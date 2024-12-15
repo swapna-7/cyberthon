@@ -6,6 +6,8 @@ import HeroSectionMobile from "./components/hero/HeroSectionMobile";
 import Tracks from "./components/Tracks";
 import Timeline from "./components/TimeLine";
 import Sponsors from "./components/Sponsors";
+import FooterDesktop from "./components/Footer/FooterDesktop";
+import FooterMobile from "./components/Footer/FooterMobile";
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -25,6 +27,7 @@ function App() {
       <Tracks/>
       <Timeline/>
       <Sponsors/>
+      {isMobile ? <FooterDesktop /> : <FooterDesktop />}
     </div>
   );
 }
