@@ -38,7 +38,7 @@ const FAQ = () => {
         <div className="text-white bg-cover bg-center" style={{ backgroundImage: `url('faq-bg.svg')`, backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
             <div className="flex flex-col lg:flex-row">
                 <div className="w-full lg:w-3/4">
-                    <div className='ps-16'>
+                    <div className="ps-0 sm:ps-16">
                         {faqs.map((faq, index) => (
                             <div key={index} className="mb-4">
                                 <h2 className="text-xl font-bold cursor-pointer" onClick={() => toggleQuestion(index)}>
