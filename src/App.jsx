@@ -9,6 +9,8 @@ import Sponsors from "./components/Sponsors";
 import FooterDesktop from "./components/footer/FooterDesktop";
 import FooterMobile from "./components/footer/FooterMobile";
 import NavbarMobile from "./components/navbar/NavBarMobile";
+import FAQ from "./components/FAQ";
+
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -29,6 +31,7 @@ function App() {
       <AboutUs/>
       <Tracks/>
       <Timeline/>
+      <FAQ/>
       <Sponsors/>
       {isMobile ? <FooterMobile /> : <FooterDesktop />}
     </div>
