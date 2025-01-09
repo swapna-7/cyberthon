@@ -10,6 +10,11 @@ import FooterDesktop from "./components/footer/FooterDesktop";
 import FooterMobile from "./components/footer/FooterMobile";
 import NavbarMobile from "./components/navbar/NavBarMobile";
 import FAQ from "./components/FAQ";
+import Scroll from "./components/Scroll";
+import Home from "./components/Home";
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+import Register from "./components/Register.tsx";
+import ContactUs from "./components/ContactUs.tsx";
 
 
 function App() {
@@ -24,17 +29,19 @@ function App() {
   }, []);
 
   return (
+    <BrowserRouter>
+    <Scroll/>
     <div style={{ backgroundColor: "#000" }}>
       {isMobile ? <NavbarMobile /> :   <NavBar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contactus" element={<ContactUs />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
       
-      {isMobile ? <HeroSectionMobile /> : <HeroSectionDesktop />}
-      <AboutUs/>
-      <Tracks/>
-      <Timeline/>
-      <FAQ/>
-      <Sponsors/>
       {isMobile ? <FooterMobile /> : <FooterDesktop />}
     </div>
+    </BrowserRouter>
   );
 }
 

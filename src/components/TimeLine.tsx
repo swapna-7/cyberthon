@@ -22,18 +22,18 @@ const Timeline = () => {
 
   return (
     <div className="text-white">
-      <h2 className="text-7xl sm:text-6xl lg:text-8xl font-bold mb-4 ms-10">
+      <h2 className="text-7xl sm:text-6xl lg:text-8xl font-bold mb-4 ms-10 ">
         TIMELINE
       </h2>
       <div className="overflow-x-auto">
         <div className="relative w-[1200px] sm:w-full h-[320px] mx-auto">
           {/* Top Line */}
-          <div className="absolute" style={{ top: `${topLinePosition}px`, width: '100%', backgroundColor: 'gray' }}>
+          <div className="absolute " style={{ top: `${topLinePosition}px`, width: '100%', backgroundColor: 'gray' }}>
             {points.map((point, index) => (
               !point.hideUpwards && (
                 <div
                   key={`top-point-${index}`}
-                  className="absolute"
+                  className="absolute "
                   style={{
                     width: `${pointSize * 2}px`,
                     height: `${pointSize * 2}px`,
@@ -44,7 +44,7 @@ const Timeline = () => {
                     boxShadow: '0 0 5px 2px rgba(255, 255, 255, 0.5)', // dim white outer ring
                   }}
                 >
-                  <div className="w-full h-full bg-gray-200 rounded-full"></div> {/* dark white center */}
+                  <div className="w-full h-full bg-gray-200 rounded-full "></div> {/* dark white center */}
                   {point.position === 'above' && (
                     <div className="absolute" style={{ top: '-20px', left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap' }}>
                       {point.text}
@@ -74,7 +74,7 @@ const Timeline = () => {
                 )}
                 {!point.hideUpwards && (
                   <div
-                    className="absolute bg-gray-400"
+                    className="absolute bg-gray-400 "
                     style={{
                       left: `calc(${spacing}% + ${(index * (100 - 2 * spacing)) / (numPoints - 1)}%)`,
                       top: `-${verticalSpacing}px`,
@@ -86,7 +86,7 @@ const Timeline = () => {
                 )}
                 {point.textAbove && (
                   <div
-                    className="absolute"
+                    className="absolute "
                     style={{
                       top: '-20px',
                       left: `calc(${spacing}% + ${(index * (100 - 2 * spacing)) / (numPoints - 1)}%)`,
