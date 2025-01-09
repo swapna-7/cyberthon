@@ -36,7 +36,7 @@ const HeroSectionDesktop = () => {
     // Add resize listener
     window.addEventListener('resize', updateTextSizes);
 
-    const targetDate = new Date("2024-12-20T10:00:00"); // Target date and time
+    const targetDate = new Date("2025-02-20T10:00:00"); // Target date and time
 
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
