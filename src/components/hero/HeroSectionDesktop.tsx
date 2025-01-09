@@ -36,7 +36,7 @@ const HeroSectionDesktop = () => {
     // Add resize listener
     window.addEventListener('resize', updateTextSizes);
 
-    const targetDate = new Date("2024-12-20T10:00:00"); // Target date and time
+    const targetDate = new Date("2025-02-20T10:00:00"); // Target date and time
 
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
@@ -48,6 +48,7 @@ const HeroSectionDesktop = () => {
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         return { days, hours, minutes };
       }
@@ -154,7 +155,7 @@ const HeroSectionDesktop = () => {
         }}
       >
         <p>
-          {`${timer.days}d:${timer.hours.toString().padStart(2, '0')}h:${timer.minutes.toString().padStart(2, '0')}m`}
+          {`${timer.days}d:${timer.hours.toString().padStart(2, '0')}h:${timer.minutes.toString().padStart(2, '0')}m:${(60 - new Date().getSeconds()).toString().padStart(2, '0')}s`}
         </p>
       </div>
 
