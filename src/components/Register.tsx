@@ -105,7 +105,7 @@ function Register() {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center mt-10">
+    <div className="h-screen flex flex-col justify-center items-center mt-24 ">
       <h1 className="text-2xl font-bold mb-6">Register</h1>
       <form className="w-full max-w-7xl p-5 rounded-lg" onSubmit={handleSubmit}>
         {/* Grid Layout */}
