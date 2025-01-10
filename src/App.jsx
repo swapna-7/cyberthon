@@ -38,7 +38,6 @@ function App() {
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/register" element={<Register />} />
       </Routes>
-      
       {isMobile ? <FooterMobile /> : <FooterDesktop />}
     </div>
     </BrowserRouter>
