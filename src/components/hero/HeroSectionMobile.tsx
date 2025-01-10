@@ -25,6 +25,8 @@ const HeroSectionMobile = () => {
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
 
         setTimer({
           days,
@@ -103,7 +105,7 @@ const HeroSectionMobile = () => {
         }}
       >
         <p>
-          {`${timer.days}d:${timer.hours.toString().padStart(2, '0')}h:${timer.minutes.toString().padStart(2, '0')}m`}
+        {`${timer.days}d:${timer.hours.toString().padStart(2, '0')}h:${timer.minutes.toString().padStart(2, '0')}m:${(60 - new Date().getSeconds()).toString().padStart(2, '0')}s`}
         </p>
       </div>
 
@@ -146,7 +148,7 @@ const HeroSectionMobile = () => {
         }}
       >
         <h1 className="text-3xl">
-          Feb 20 <br /> & 21
+          Jan 27 <br /> & 28
         </h1>
         <p>A high-stakes arena where <br /> top minds tackle real-world <br /> problems. </p>
       </div>
