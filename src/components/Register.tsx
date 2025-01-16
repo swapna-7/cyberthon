@@ -1,8 +1,7 @@
 import { addDoc, collection } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { db, storage } from "../firebase_config";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-
+import { db, supabase } from "../firebase_config";
+import { uid } from "uid";
 function Register() {
   const [modalOpen, setModalOpen] = useState(false);
   const [transactionImage, setTransactionImage] = useState<any>();
@@ -18,6 +17,7 @@ function Register() {
     member2Name: "",
     member2Phone: "",
     member3Name: "",
+    member4Name: "",
     member3Phone: "",
     transactionID: "",
   });
@@ -44,19 +44,16 @@ function Register() {
       // Replace 'eventCollection' with the specific event's collection name
       const docRef = await addDoc(collection(db, "cyberthon"), {
         teamName: teamDetails.teamName,
-        leaderName: teamDetails.leaderName,
-        leaderPhone: teamDetails.leaderPhone,
-        leaderEmail: teamDetails.leaderEmail,
-        collegeName: teamDetails.collegeName,
-        member1Name: teamDetails.member1Name,
-        member1Phone: teamDetails.member1Phone,
-        member2Name: teamDetails.member2Name,
-        member2Phone: teamDetails.member2Phone,
-        member3Name: teamDetails.member3Name,
-        member3Phone: teamDetails.member3Phone,
+        name: teamDetails.leaderName,
+        contact: teamDetails.leaderPhone,
+        email: teamDetails.leaderEmail,
+        college: teamDetails.collegeName,
+        member2: teamDetails.member1Name,
+        member3: teamDetails.member2Name,
+        member4: teamDetails.member3Name,
+        member5: teamDetails.member4Name,
         transactionID: teamDetails.transactionID,
-        transactionImage: url,
-        createdAt: new Date(),
+        screenshotUrl: url,
       });
       console.log("Document written with ID: ", docRef.id);
       alert("Form submitted successfully!");
@@ -72,7 +69,9 @@ function Register() {
       !teamDetails.teamName ||
       !teamDetails.leaderName ||
       !teamDetails.leaderPhone ||
-      !teamDetails.leaderEmail
+      !teamDetails.leaderEmail ||
+      !transactionImage ||
+      !teamDetails.transactionID
     ) {
       alert("Please fill out all required fields.");
     } else {
@@ -80,27 +79,42 @@ function Register() {
       setIsSubmitting(true);
 
       // Upload the image to Firebase Storage
-      const storageRef = ref(storage, `screenshots/${transactionImage?.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, transactionImage);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-        },
-        (error) => {
+      async function uploadFile() {
+        const UID = uid();
+        const { data, error } = await supabase.storage
+          .from("screenshots")
+          .upload(UID, transactionImage);
+        if (error) {
           console.error("Upload error:", error);
           setIsSubmitting(false);
-        },
-        async () => {
-          // Get the image URL after upload completes
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          // Save the entire form data, including the image URL, in Firestore
+        } else {
+          const { data: data2, error } = await supabase.storage
+            .from("screenshots")
+            .createSignedUrl(UID, 100000000);
+
+          const downloadURL = data2?.signedUrl;
+
           await saveFormData(downloadURL);
           setIsSubmitting(false);
+          setTeamDetails({
+            teamName: "",
+            leaderName: "",
+            leaderPhone: "",
+            leaderEmail: "",
+            collegeName: "",
+            member1Name: "",
+            member1Phone: "",
+            member2Name: "",
+            member2Phone: "",
+            member3Name: "",
+            member4Name: "",
+            member3Phone: "",
+            transactionID: "",
+          });
+          setTransactionImage(null);
         }
-      );
+      }
+      uploadFile();
     }
   };
 
@@ -230,7 +244,7 @@ function Register() {
           </div>
 
           {/* Member 1 Phone */}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="member1Phone"
@@ -246,7 +260,7 @@ function Register() {
               onChange={handleInputChange}
               placeholder="Enter member 1 phone number"
             />
-          </div>
+          </div> */}
 
           {/* Member 2 Name */}
           <div className="mb-4">
@@ -268,7 +282,7 @@ function Register() {
           </div>
 
           {/* Member 2 Phone */}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="member2Phone"
@@ -284,7 +298,7 @@ function Register() {
               onChange={handleInputChange}
               placeholder="Enter member 2 phone number"
             />
-          </div>
+          </div> */}
 
           {/* Member 3 Name */}
           <div className="mb-4">
@@ -306,7 +320,7 @@ function Register() {
           </div>
 
           {/* Member 3 Phone */}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="member3Phone"
@@ -322,13 +336,13 @@ function Register() {
               onChange={handleInputChange}
               placeholder="Enter member 3 phone number"
             />
-          </div>
+          </div> */}
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="transactionID"
             >
-              Transaction ID
+              Transaction ID <span className="text-red-500">*</span>
             </label>
             <input
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white"
@@ -338,6 +352,7 @@ function Register() {
               value={teamDetails.transactionID}
               onChange={handleInputChange}
               placeholder="Transaction ID"
+              required
             />
           </div>
         </div>
@@ -365,9 +380,11 @@ function Register() {
                   id="file_input"
                   type="file"
                   onChange={handleFileChange}
+                  required
                 />
                 <h6 className="text-center p-4">
-                  Drop Your Payment Screenshot Here
+                  Drop Your Payment Screenshot Here{" "}
+                  <span className="text-red-500">*</span>
                 </h6>
 
                 {transactionImage && (
@@ -386,7 +403,7 @@ function Register() {
             type="submit"
             className="px-4 py-2 bg-black border border-white text-white rounded-md hover:bg-zinc-700"
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
       </form>
